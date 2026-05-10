@@ -34,16 +34,18 @@ jobs:
         with:
           flutter-version: '3.19.0'
 
+      # This step assumes your reflex project is in the root. 
+      # If it's in a subdirectory, add a `working-directory` property here.
       - name: Export Frontend Assets
         run: reflex export --frontend-only
 
       - name: Install Flutter dependencies
         run: flutter pub get
-        working-directory: ./frontend # Run in the correct subdirectory
+        working-directory: ./frontend # Assuming export generates a 'frontend' dir
 
       - name: Build APK
         run: flutter build apk --release
-        working-directory: ./frontend # Run in the correct subdirectory
+        working-directory: ./frontend # Assuming export generates a 'frontend' dir
 
       - name: Create Release
         id: create_release
@@ -62,6 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
+          # The path to the APK will depend on the output of the build step
           asset_path: frontend/build/app/outputs/flutter-apk/app-release.apk
           asset_name: app-release.apk
           asset_content_type: application/vnd.android.package-archive

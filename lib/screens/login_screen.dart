@@ -64,16 +64,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 .then(
                   duration: 2000.ms,
                 )
-                .fade(
-                  begin: 0.5,
-                  end: 1,
+                .color(
+                  begin: Colors.blue.withOpacity(0.5),
+                  end: Colors.purple.withOpacity(0.5),
                 )
                 .then(
                   duration: 2000.ms,
                 )
-                .fade(
-                  begin: 1,
-                  end: 0.5,
+                .color(
+                  begin: Colors.purple.withOpacity(0.5),
+                  end: Colors.blue.withOpacity(0.5),
                 ),
           ),
           Column(
